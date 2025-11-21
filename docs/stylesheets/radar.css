@@ -3,15 +3,15 @@
  * Refined Typography and Premium Design
  */
 
-/* Radar Container */
+/* Radar Container - Refined */
 #radar-container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 960px;
     margin: 2.5rem auto;
-    padding: 3rem 2rem;
+    padding: 3.5rem 2.5rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.07);
     position: relative;
     overflow: visible;
     display: flex;
@@ -69,11 +69,11 @@
 }
 
 .blip {
-    transition: all 0.3s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .blip:hover {
-    transform: scale(1.08);
+    transform-origin: center;
 }
 
 .blip text {
@@ -83,15 +83,15 @@
 
 /* Enhanced Legend by Quadrant */
 #radar-legend-enhanced {
-    max-width: 1000px;
+    max-width: 960px;
     margin: 2.5rem auto;
     padding: 2.5rem;
     background: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.07);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2.25rem;
 }
 
 .legend-quadrant h3 {
@@ -113,17 +113,17 @@
     gap: 0.875rem;
     padding: 0.75rem 0.875rem;
     background: #f8f9fa;
-    border-radius: 8px;
-    transition: all 0.25s ease;
+    border-radius: 9px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid transparent;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
 }
 
 .legend-list .legend-item:hover {
-    background: white;
-    border-color: #e1e4e8;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    transform: translateX(3px);
+    background: #ffffff;
+    border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateX(4px);
 }
 
 .legend-number {
@@ -158,12 +158,12 @@
 
 /* Details Panel */
 #radar-details {
-    max-width: 1000px;
+    max-width: 960px;
     margin: 2.5rem auto;
     padding: 2.5rem;
     background: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.07);
     min-height: 180px;
 }
 
