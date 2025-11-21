@@ -6,14 +6,17 @@
 /* Radar Container */
 #radar-container {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 3rem auto;
     padding: 2.5rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #radar-container::before {
@@ -46,6 +49,8 @@
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    max-width: 100%;
+    height: auto;
 }
 
 /* SVG Elements */
@@ -74,7 +79,7 @@
 
 /* Enhanced Legend */
 #radar-legend {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 3rem auto;
     padding: 2.5rem;
     background: white;
@@ -149,14 +154,14 @@
 
 /* Enhanced Legend by Quadrant */
 #radar-legend-enhanced {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 3rem auto;
     padding: 2.5rem;
     background: white;
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2.5rem;
 }
 
@@ -221,7 +226,7 @@
 
 /* Details Panel */
 #radar-details {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 3rem auto;
     padding: 2.5rem;
     background: white;
@@ -360,11 +365,14 @@
     #radar-container {
         max-width: 100%;
         margin: 2rem 1rem;
+        padding: 2rem;
     }
-    
-    #radar {
-        width: 100%;
-        height: auto;
+}
+
+@media (max-width: 1024px) {
+    #radar-container {
+        padding: 1.5rem;
+        margin: 1.5rem 0.5rem;
     }
 }
 

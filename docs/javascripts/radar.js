@@ -9,7 +9,7 @@
     // Enhanced Configuration
     const config = {
         svg_id: "radar",
-        width: 1400,
+        width: 1000,
         height: 1000,
         colors: {
             background: "#fff",
@@ -53,15 +53,21 @@
         // Clear existing
         d3.select('#radar').selectAll('*').remove();
         
-        // Setup SVG
+        // Setup SVG with responsive sizing
+        const container = document.getElementById('radar-container');
+        const containerWidth = container.clientWidth - 80; // Account for padding
+        const size = Math.min(containerWidth, 1000, window.innerHeight - 200);
+        
         svg = d3.select("#radar")
-            .attr("width", config.width)
-            .attr("height", config.height);
+            .attr("width", size)
+            .attr("height", size)
+            .attr("viewBox", `0 0 ${size} ${size}`)
+            .attr("preserveAspectRatio", "xMidYMid meet");
 
         const radarContainer = svg.append("g")
-            .attr("transform", `translate(${config.width / 2}, ${config.height / 2})`);
+            .attr("transform", `translate(${size / 2}, ${size / 2})`);
 
-        const radius = Math.min(config.width, config.height) / 2 - 100;
+        const radius = (size / 2) - 80;
 
         // Add subtle gradient background
         const defs = svg.append("defs");
