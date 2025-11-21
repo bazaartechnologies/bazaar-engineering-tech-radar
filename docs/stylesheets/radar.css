@@ -6,9 +6,9 @@
 /* Radar Container */
 #radar-container {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 2.5rem auto;
-    padding: 2.5rem;
+    padding: 3rem 2rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.08);
@@ -83,7 +83,7 @@
 
 /* Enhanced Legend by Quadrant */
 #radar-legend-enhanced {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 2.5rem auto;
     padding: 2.5rem;
     background: white;
@@ -158,7 +158,7 @@
 
 /* Details Panel */
 #radar-details {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 2.5rem auto;
     padding: 2.5rem;
     background: white;

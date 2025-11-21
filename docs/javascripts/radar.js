@@ -44,8 +44,8 @@
         d3.select('#radar').selectAll('*').remove();
         
         const container = document.getElementById('radar-container');
-        const containerWidth = container.clientWidth - 100;
-        const size = Math.min(containerWidth, 950, window.innerHeight - 150);
+        const containerWidth = container.clientWidth - 60;
+        const size = Math.min(containerWidth, 900, window.innerHeight - 100);
         
         const svg = d3.select("#radar")
             .attr("width", size)
@@ -56,7 +56,7 @@
         const radarContainer = svg.append("g")
             .attr("transform", `translate(${size / 2}, ${size / 2})`);
 
-        const radius = (size / 2) - 60;
+        const radius = (size / 2) - 100;
 
         // Subtle gradient background
         const defs = svg.append("defs");
@@ -136,18 +136,18 @@
                 .attr("opacity", 0.85);
         });
 
-        // Quadrant labels - optimized size and position
+        // Quadrant labels - better positioned to prevent cutoff
         const quadrantLabels = radarContainer.append("g").attr("class", "quadrant-labels");
         const labelConfigs = [
-            { angle: Math.PI / 4, anchor: "start", dx: 15, dy: -15 },      // Top-right
-            { angle: 3 * Math.PI / 4, anchor: "end", dx: -15, dy: -15 },   // Top-left
-            { angle: 5 * Math.PI / 4, anchor: "end", dx: -15, dy: 15 },    // Bottom-left
-            { angle: 7 * Math.PI / 4, anchor: "start", dx: 15, dy: 15 }    // Bottom-right
+            { angle: Math.PI / 4, anchor: "start", dx: 10, dy: -10 },      // Top-right
+            { angle: 3 * Math.PI / 4, anchor: "end", dx: -10, dy: -10 },   // Top-left
+            { angle: 5 * Math.PI / 4, anchor: "end", dx: -10, dy: 10 },    // Bottom-left
+            { angle: 7 * Math.PI / 4, anchor: "start", dx: 10, dy: 10 }    // Bottom-right
         ];
 
         config.quadrants.forEach((quadrant, i) => {
             const cfg = labelConfigs[i];
-            const labelRadius = radius * 0.88;
+            const labelRadius = radius * 0.80;
             const x = Math.cos(cfg.angle) * labelRadius + cfg.dx;
             const y = Math.sin(cfg.angle) * labelRadius + cfg.dy;
 
@@ -155,7 +155,7 @@
                 .attr("x", x)
                 .attr("y", y)
                 .attr("text-anchor", cfg.anchor)
-                .attr("font-size", "14px")
+                .attr("font-size", "13px")
                 .attr("font-weight", "700")
                 .attr("fill", quadrant.color)
                 .attr("opacity", 0)
