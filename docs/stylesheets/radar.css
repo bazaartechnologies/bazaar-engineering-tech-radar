@@ -1,0 +1,257 @@
+/**
+ * Tech Radar Styles
+ */
+
+/* Radar Container */
+#radar-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#radar-loading {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+#radar {
+    display: block;
+    margin: 0 auto;
+    background: white;
+    border-radius: 4px;
+}
+
+/* SVG Elements */
+.rings circle {
+    stroke: #ddd;
+    fill: none;
+}
+
+.rings text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    fill: #666;
+}
+
+.quadrants line {
+    stroke: #ddd;
+}
+
+.quadrant-labels text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.blip circle {
+    transition: r 0.2s ease;
+}
+
+.blip:hover circle {
+    filter: brightness(1.2);
+}
+
+/* Legend */
+#radar-legend {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#radar-legend h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#radar-legend h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.legend-section {
+    margin-bottom: 1.5rem;
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.legend-item:hover {
+    background-color: #f5f5f5;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #ddd;
+}
+
+.legend-marker {
+    font-size: 1.5rem;
+    color: #888;
+}
+
+/* Details Panel */
+#radar-details {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#radar-details h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#detail-content {
+    padding: 1rem;
+}
+
+#detail-content h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #222;
+}
+
+.detail-meta {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ring-0 { background-color: #93c47d; }
+.ring-1 { background-color: #93d2f3; }
+.ring-2 { background-color: #fbdb84; color: #333; }
+.ring-3 { background-color: #efafa9; }
+
+.tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: #e8e8e8;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.detail-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #5e81ac;
+    color: white !important;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.detail-link:hover {
+    background: #4c6a93;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #radar-container {
+        padding: 0.5rem;
+    }
+    
+    #radar {
+        width: 100%;
+        height: auto;
+    }
+    
+    #radar-legend,
+    #radar-details {
+        padding: 1rem;
+    }
+    
+    .legend-items {
+        font-size: 0.9rem;
+    }
+}
+
+/* Tooltip (styled by JavaScript) */
+.radar-tooltip {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#detail-content {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Print Styles */
+@media print {
+    #radar-legend,
+    #radar-details {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    .detail-link {
+        display: none;
+    }
+}
+

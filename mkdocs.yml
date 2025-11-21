@@ -1,0 +1,78 @@
+site_name: Bazaar Tech Radar
+site_description: Technology Radar for tracking our technology adoption journey
+site_author: Bazaar Engineering Team
+repo_url: https://github.com/yourusername/bazaar-tech-radar
+repo_name: bazaar-tech-radar
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Tech Radar: radar.md
+  - How to Use: guide.md
+  - Technologies:
+    - Techniques: techniques/index.md
+    - Tools: tools/index.md
+    - Platforms: platforms/index.md
+    - Languages & Frameworks: languages-frameworks/index.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/radar.css
+
+extra_javascript:
+  - https://d3js.org/d3.v7.min.js
+  - javascripts/radar.js
+  - javascripts/radar-data.js
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername/bazaar-tech-radar
+
+copyright: Copyright &copy; 2025 Bazaar Engineering Team
+
