@@ -3,12 +3,21 @@
  * Refined Typography and Premium Design
  */
 
+/* Main Layout - Radar + Legend Side by Side */
+#radar-main-layout {
+    display: flex;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 2.5rem auto;
+    align-items: flex-start;
+    padding: 0 1rem;
+}
+
 /* Radar Container - Refined */
 #radar-container {
-    width: 100%;
-    max-width: 960px;
-    margin: 2.5rem auto;
-    padding: 3.5rem 2.5rem;
+    flex: 1;
+    min-width: 0;
+    padding: 3rem 2rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
     border-radius: 18px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.07);
@@ -81,23 +90,27 @@
     user-select: none;
 }
 
-/* Enhanced Legend by Quadrant */
+/* Enhanced Legend - Vertical Sidebar */
 #radar-legend-enhanced {
-    max-width: 960px;
-    margin: 2.5rem auto;
-    padding: 2.5rem;
+    width: 320px;
+    flex-shrink: 0;
+    padding: 2rem;
     background: white;
     border-radius: 18px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.07);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
 }
 
 .legend-quadrant h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
-    margin-bottom: 1.25rem;
+    margin: 0 0 1rem 0;
     letter-spacing: -0.2px;
 }
 
@@ -158,8 +171,8 @@
 
 /* Details Panel */
 #radar-details {
-    max-width: 960px;
-    margin: 2.5rem auto;
+    max-width: 1400px;
+    margin: 2rem auto;
     padding: 2.5rem;
     background: white;
     border-radius: 18px;
@@ -294,18 +307,25 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1440px) {
-    #radar-container {
-        max-width: 100%;
-        margin: 2rem 1rem;
-        padding: 2rem;
+@media (max-width: 1200px) {
+    #radar-main-layout {
+        flex-direction: column;
+        padding: 0 0.5rem;
+    }
+    
+    #radar-legend-enhanced {
+        width: 100%;
+        position: static;
+        max-height: none;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
     }
 }
 
 @media (max-width: 1024px) {
     #radar-container {
-        padding: 1.5rem;
-        margin: 1.5rem 0.5rem;
+        padding: 2rem 1.5rem;
     }
     
     #radar-legend-enhanced {
@@ -315,16 +335,19 @@
 }
 
 @media (max-width: 768px) {
+    #radar-main-layout {
+        padding: 0;
+        margin: 1.5rem 0.5rem;
+    }
+    
     #radar-container {
-        padding: 1.25rem;
-        margin: 1.25rem 0.5rem;
+        padding: 1.5rem 1rem;
     }
     
     #radar-legend-enhanced {
         padding: 1.5rem;
         grid-template-columns: 1fr;
         gap: 1.5rem;
-        margin: 2rem 0.5rem;
     }
     
     #radar-details {
@@ -368,6 +391,25 @@
 /* Smooth Scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar for Legend */
+#radar-legend-enhanced::-webkit-scrollbar {
+    width: 6px;
+}
+
+#radar-legend-enhanced::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+#radar-legend-enhanced::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+#radar-legend-enhanced::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
 }
 
 /* Enhanced Focus States */

@@ -1,14 +1,16 @@
 # Interactive Tech Radar
 
-<div id="radar-container">
-    <div id="radar-loading">
-        <div style="font-size: 2rem; margin-bottom: 1rem;">⚡</div>
-        Loading Tech Radar...
+<div id="radar-main-layout">
+    <div id="radar-container">
+        <div id="radar-loading">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">⚡</div>
+            Loading Tech Radar...
+        </div>
+        <svg id="radar"></svg>
     </div>
-    <svg id="radar"></svg>
-</div>
 
-<div id="radar-legend-enhanced"></div>
+    <div id="radar-legend-enhanced"></div>
+</div>
 
 <div id="radar-details">
     <h2>Technology Details</h2>
