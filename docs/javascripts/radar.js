@@ -1,19 +1,18 @@
 /**
- * Tech Radar Visualization using D3.js
- * Professional ThoughtWorks-style implementation
+ * Professional Tech Radar Visualization
+ * World-class ThoughtWorks-style implementation
  */
 
 (function() {
     'use strict';
 
-    // Enhanced Configuration
     const config = {
         svg_id: "radar",
         width: 1000,
         height: 1000,
         colors: {
             background: "#fff",
-            grid: "#ddd",
+            grid: "#e5e7eb",
             inactive: "#ddd"
         },
         quadrants: [
@@ -23,42 +22,32 @@
             { name: "Languages & Frameworks", color: "#8B4789" }
         ],
         rings: [
-            { name: "Adopt", radius: 0.20, color: "#5BA300" },
-            { name: "Trial", radius: 0.40, color: "#009EB0" },
-            { name: "Assess", radius: 0.65, color: "#C7BA00" },
-            { name: "Hold", radius: 0.90, color: "#E09B96" }
+            { name: "ADOPT", radius: 0.22, color: "#5BA300" },
+            { name: "TRIAL", radius: 0.42, color: "#009EB0" },
+            { name: "ASSESS", radius: 0.68, color: "#C7BA00" },
+            { name: "HOLD", radius: 0.92, color: "#E09B96" }
         ],
-        print_layout: true,
-        zoomed_quadrant: 0,
-        // Animation settings
-        animation_duration: 1000,
-        blip_size: 10
+        animation_duration: 800,
+        blip_size: 11
     };
 
-    let svg, radar, legend_items = [];
-
     function renderRadar() {
-        // Wait for radar data
         if (typeof window.radarData === 'undefined') {
             setTimeout(renderRadar, 100);
             return;
         }
 
         const data = window.radarData;
-        
-        // Hide loading
         const loadingDiv = document.getElementById('radar-loading');
         if (loadingDiv) loadingDiv.style.display = 'none';
 
-        // Clear existing
         d3.select('#radar').selectAll('*').remove();
         
-        // Setup SVG with responsive sizing
         const container = document.getElementById('radar-container');
-        const containerWidth = container.clientWidth - 80; // Account for padding
-        const size = Math.min(containerWidth, 1000, window.innerHeight - 200);
+        const containerWidth = container.clientWidth - 100;
+        const size = Math.min(containerWidth, 950, window.innerHeight - 150);
         
-        svg = d3.select("#radar")
+        const svg = d3.select("#radar")
             .attr("width", size)
             .attr("height", size)
             .attr("viewBox", `0 0 ${size} ${size}`)
@@ -67,53 +56,46 @@
         const radarContainer = svg.append("g")
             .attr("transform", `translate(${size / 2}, ${size / 2})`);
 
-        const radius = (size / 2) - 80;
+        const radius = (size / 2) - 60;
 
-        // Add subtle gradient background
+        // Subtle gradient background
         const defs = svg.append("defs");
-        const gradient = defs.append("radialGradient")
-            .attr("id", "radar-gradient");
-        gradient.append("stop")
-            .attr("offset", "0%")
-            .attr("stop-color", "#f8f9fa");
-        gradient.append("stop")
-            .attr("offset", "100%")
-            .attr("stop-color", "#ffffff");
+        const gradient = defs.append("radialGradient").attr("id", "radar-gradient");
+        gradient.append("stop").attr("offset", "0%").attr("stop-color", "#fafafa");
+        gradient.append("stop").attr("offset", "100%").attr("stop-color", "#ffffff");
 
         radarContainer.append("circle")
             .attr("r", radius)
             .attr("fill", "url(#radar-gradient)");
 
-        // Draw rings with better styling
+        // Draw rings
         const rings = radarContainer.append("g").attr("class", "rings");
         
         config.rings.forEach((ring, i) => {
             const ringRadius = ring.radius * radius;
             
-            // Ring circle
             rings.append("circle")
                 .attr("cx", 0)
                 .attr("cy", 0)
                 .attr("r", ringRadius)
                 .attr("fill", "none")
-                .attr("stroke", "#ddd")
+                .attr("stroke", config.colors.grid)
                 .attr("stroke-width", 1.5)
                 .style("opacity", 0)
                 .transition()
                 .duration(config.animation_duration)
-                .delay(i * 100)
+                .delay(i * 80)
                 .style("opacity", 1);
 
-            // Ring background with subtle color
             rings.append("circle")
                 .attr("cx", 0)
                 .attr("cy", 0)
                 .attr("r", ringRadius)
                 .attr("fill", ring.color)
-                .attr("opacity", 0.03);
+                .attr("opacity", 0.025);
         });
 
-        // Draw quadrant lines with better styling
+        // Quadrant lines
         const quadrantLines = radarContainer.append("g").attr("class", "quadrant-lines");
         [0, 90, 180, 270].forEach((angle, i) => {
             const rad = angle * Math.PI / 180;
@@ -122,68 +104,77 @@
                 .attr("y1", 0)
                 .attr("x2", Math.cos(rad) * radius)
                 .attr("y2", Math.sin(rad) * radius)
-                .attr("stroke", "#ccc")
-                .attr("stroke-width", 2)
+                .attr("stroke", config.colors.grid)
+                .attr("stroke-width", 1.5)
                 .style("opacity", 0)
                 .transition()
                 .duration(config.animation_duration)
-                .delay(i * 100)
+                .delay(i * 80)
                 .style("opacity", 1);
         });
 
-        // Add ring labels with better positioning
+        // Ring labels - better positioned
+        const ringLabels = radarContainer.append("g").attr("class", "ring-labels");
         config.rings.forEach((ring, i) => {
-            if (i < config.rings.length - 1) {
-                const ringRadius = ring.radius * radius;
-                rings.append("text")
-                    .attr("x", 10)
-                    .attr("y", -ringRadius + 20)
-                    .attr("text-anchor", "start")
-                    .attr("font-size", "14px")
-                    .attr("font-weight", "600")
-                    .attr("fill", ring.color)
-                    .style("opacity", 0)
-                    .text(ring.name.toUpperCase())
-                    .transition()
-                    .duration(config.animation_duration)
-                    .delay(500 + i * 100)
-                    .style("opacity", 1);
-            }
+            const ringRadius = ring.radius * radius;
+            const labelAngle = Math.PI / 4; // 45 degrees
+            const labelX = Math.cos(labelAngle) * ringRadius * 0.93;
+            const labelY = -Math.sin(labelAngle) * ringRadius * 0.93;
+            
+            ringLabels.append("text")
+                .attr("x", labelX)
+                .attr("y", labelY)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "11px")
+                .attr("font-weight", "700")
+                .attr("fill", ring.color)
+                .attr("opacity", 0)
+                .text(ring.name)
+                .transition()
+                .duration(config.animation_duration)
+                .delay(400 + i * 80)
+                .attr("opacity", 0.85);
         });
 
-        // Add quadrant labels with better styling
+        // Quadrant labels - optimized size and position
         const quadrantLabels = radarContainer.append("g").attr("class", "quadrant-labels");
+        const labelConfigs = [
+            { angle: Math.PI / 4, anchor: "start", dx: 15, dy: -15 },      // Top-right
+            { angle: 3 * Math.PI / 4, anchor: "end", dx: -15, dy: -15 },   // Top-left
+            { angle: 5 * Math.PI / 4, anchor: "end", dx: -15, dy: 15 },    // Bottom-left
+            { angle: 7 * Math.PI / 4, anchor: "start", dx: 15, dy: 15 }    // Bottom-right
+        ];
+
         config.quadrants.forEach((quadrant, i) => {
-            const angle = (i * Math.PI / 2) + Math.PI / 4;
-            const labelRadius = radius * 0.8;
-            const x = Math.cos(angle) * labelRadius;
-            const y = Math.sin(angle) * labelRadius;
+            const cfg = labelConfigs[i];
+            const labelRadius = radius * 0.88;
+            const x = Math.cos(cfg.angle) * labelRadius + cfg.dx;
+            const y = Math.sin(cfg.angle) * labelRadius + cfg.dy;
 
             quadrantLabels.append("text")
                 .attr("x", x)
                 .attr("y", y)
-                .attr("text-anchor", "middle")
-                .attr("font-size", "20px")
+                .attr("text-anchor", cfg.anchor)
+                .attr("font-size", "14px")
                 .attr("font-weight", "700")
                 .attr("fill", quadrant.color)
                 .attr("opacity", 0)
                 .text(quadrant.name.toUpperCase())
                 .transition()
                 .duration(config.animation_duration)
-                .delay(700 + i * 100)
+                .delay(600 + i * 80)
                 .attr("opacity", 0.9);
         });
 
-        // Plot blips with enhanced visuals
+        // Plot blips
         const blips = data.technologies.map(tech => {
             const quadrant = config.quadrants[tech.quadrant];
             const ring = config.rings[tech.ring];
             
-            // Calculate position
-            const angle = (tech.quadrant * Math.PI / 2) + (Math.random() * Math.PI / 2 * 0.8) + (Math.PI / 2 * 0.1);
+            const angle = (tech.quadrant * Math.PI / 2) + (Math.random() * Math.PI / 2 * 0.75) + (Math.PI / 2 * 0.125);
             const prevRingRadius = tech.ring > 0 ? config.rings[tech.ring - 1].radius * radius : 0;
             const currentRingRadius = ring.radius * radius;
-            const r = prevRingRadius + (Math.random() * (currentRingRadius - prevRingRadius - 30)) + 15;
+            const r = prevRingRadius + (Math.random() * (currentRingRadius - prevRingRadius - 25)) + 12;
             
             return {
                 ...tech,
@@ -196,7 +187,6 @@
 
         const blipGroup = radarContainer.append("g").attr("class", "blips");
 
-        // Create blip groups
         const blipElements = blipGroup.selectAll("g")
             .data(blips)
             .enter()
@@ -206,17 +196,17 @@
             .style("cursor", "pointer")
             .style("opacity", 0);
 
-        // Blip outer circle (glow effect)
+        // Outer glow
         blipElements.append("circle")
             .attr("r", 0)
             .attr("fill", d => d.color)
-            .attr("opacity", 0.2)
+            .attr("opacity", 0.15)
             .transition()
             .duration(config.animation_duration)
-            .delay((d, i) => 1000 + i * 50)
-            .attr("r", config.blip_size + 4);
+            .delay((d, i) => 800 + i * 40)
+            .attr("r", config.blip_size + 5);
 
-        // Blip main circle
+        // Main blip circle
         blipElements.append("circle")
             .attr("class", "blip-circle")
             .attr("r", 0)
@@ -226,14 +216,14 @@
             .style("filter", "drop-shadow(0 2px 4px rgba(0,0,0,0.2))")
             .transition()
             .duration(config.animation_duration)
-            .delay((d, i) => 1000 + i * 50)
+            .delay((d, i) => 800 + i * 40)
             .attr("r", config.blip_size);
 
-        // Add number labels on blips
+        // Number labels
         blipElements.append("text")
             .attr("text-anchor", "middle")
             .attr("dy", "0.35em")
-            .attr("font-size", "11px")
+            .attr("font-size", "10px")
             .attr("font-weight", "700")
             .attr("fill", "#fff")
             .style("pointer-events", "none")
@@ -241,25 +231,23 @@
             .text((d, i) => i + 1)
             .transition()
             .duration(config.animation_duration)
-            .delay((d, i) => 1200 + i * 50)
+            .delay((d, i) => 1000 + i * 40)
             .style("opacity", 1);
 
-        // Show blip groups
         blipElements
             .transition()
             .duration(config.animation_duration)
-            .delay((d, i) => 1000 + i * 50)
+            .delay((d, i) => 800 + i * 40)
             .style("opacity", 1);
 
-        // Interaction handlers
+        // Interactions
         blipElements
             .on("mouseover", function(event, d) {
                 d3.select(this).select(".blip-circle")
                     .transition()
                     .duration(200)
-                    .attr("r", config.blip_size + 4)
+                    .attr("r", config.blip_size + 3)
                     .style("filter", "drop-shadow(0 4px 12px rgba(0,0,0,0.3))");
-                
                 showTooltip(event, d);
             })
             .on("mouseout", function(event, d) {
@@ -268,27 +256,21 @@
                     .duration(200)
                     .attr("r", config.blip_size)
                     .style("filter", "drop-shadow(0 2px 4px rgba(0,0,0,0.2))");
-                
                 hideTooltip();
             })
             .on("click", function(event, d) {
                 showBlipDetails(d);
-                
-                // Highlight selected
                 blipGroup.selectAll(".blip-circle")
                     .transition()
                     .duration(200)
                     .attr("stroke-width", 2.5);
-                
                 d3.select(this).select(".blip-circle")
                     .transition()
                     .duration(200)
                     .attr("stroke-width", 4);
             });
 
-        // Create enhanced legend
         createLegend(blips);
-
         console.log(`✅ Rendered ${data.technologies.length} technologies`);
     }
 
@@ -297,25 +279,21 @@
         if (!legendContainer.node()) return;
 
         legendContainer.selectAll("*").remove();
-
-        // Group by quadrant
         const byQuadrant = d3.group(blips, d => d.quadrant);
 
         byQuadrant.forEach((techs, quadrantId) => {
             const quadrant = config.quadrants[quadrantId];
-            
-            const section = legendContainer.append("div")
-                .attr("class", "legend-quadrant");
+            const section = legendContainer.append("div").attr("class", "legend-quadrant");
 
             section.append("h3")
                 .style("color", quadrant.color)
                 .style("border-left", `4px solid ${quadrant.color}`)
                 .style("padding-left", "12px")
-                .style("margin-bottom", "16px")
+                .style("margin-bottom", "14px")
+                .style("font-size", "1.1rem")
                 .text(quadrant.name);
 
-            const list = section.append("div")
-                .attr("class", "legend-list");
+            const list = section.append("div").attr("class", "legend-list");
 
             techs.forEach((tech, i) => {
                 const item = list.append("div")
@@ -354,22 +332,22 @@
                 .style("position", "absolute")
                 .style("background", "rgba(0, 0, 0, 0.9)")
                 .style("color", "#fff")
-                .style("padding", "12px 16px")
-                .style("border-radius", "8px")
-                .style("font-size", "14px")
+                .style("padding", "10px 14px")
+                .style("border-radius", "6px")
+                .style("font-size", "13px")
                 .style("pointer-events", "none")
                 .style("z-index", "10000")
                 .style("box-shadow", "0 4px 12px rgba(0,0,0,0.3)")
-                .style("max-width", "300px");
+                .style("max-width", "250px");
         }
 
         tooltip.html(`
-            <div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;">${d.name}</div>
-            <div style="opacity: 0.8;">${config.rings[d.ring].name}</div>
+            <div style="font-weight: 700; font-size: 14px; margin-bottom: 3px;">${d.name}</div>
+            <div style="opacity: 0.8; font-size: 12px;">${config.rings[d.ring].name}</div>
         `)
         .style("display", "block")
-        .style("left", (event.pageX + 15) + "px")
-        .style("top", (event.pageY - 15) + "px");
+        .style("left", (event.pageX + 12) + "px")
+        .style("top", (event.pageY - 12) + "px");
     }
 
     function hideTooltip() {
@@ -412,7 +390,6 @@
         detailDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    // Initialize
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', renderRadar);
     } else {
