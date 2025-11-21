@@ -29,6 +29,8 @@ theme:
     - search.suggest
     - search.highlight
     - content.code.copy
+    - content.tabs.link
+  language: en
   icon:
     repo: fontawesome/brands/github
 

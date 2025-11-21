@@ -405,8 +405,14 @@ body {
 }
 
 .md-content__inner {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Better spacing for radar page */
+.md-content__inner > h1:first-child {
+    margin-bottom: 1.5rem;
 }
 
 /* Enhanced Spacing */

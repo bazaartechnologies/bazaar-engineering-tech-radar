@@ -3,21 +3,25 @@
  * Refined Typography and Premium Design
  */
 
+/* Hide TOC on radar page for cleaner layout */
+.md-content__inner > nav.md-nav--secondary {
+    display: none;
+}
+
 /* Main Layout - Radar + Legend Side by Side */
 #radar-main-layout {
     display: flex;
     gap: 2rem;
-    max-width: 1400px;
-    margin: 2.5rem auto;
+    width: 100%;
+    margin: 2rem 0;
     align-items: flex-start;
-    padding: 0 1rem;
 }
 
 /* Radar Container - Refined */
 #radar-container {
     flex: 1;
     min-width: 0;
-    padding: 3rem 2rem;
+    padding: 2.5rem 2rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
     border-radius: 18px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.07);
@@ -92,15 +96,15 @@
 
 /* Enhanced Legend - Vertical Sidebar */
 #radar-legend-enhanced {
-    width: 320px;
+    width: 300px;
     flex-shrink: 0;
-    padding: 2rem;
+    padding: 1.75rem;
     background: white;
     border-radius: 18px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.07);
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.75rem;
     position: sticky;
     top: 1rem;
     max-height: calc(100vh - 2rem);
@@ -171,8 +175,8 @@
 
 /* Details Panel */
 #radar-details {
-    max-width: 1400px;
-    margin: 2rem auto;
+    width: 100%;
+    margin: 2rem 0;
     padding: 2.5rem;
     background: white;
     border-radius: 18px;
@@ -310,7 +314,6 @@
 @media (max-width: 1200px) {
     #radar-main-layout {
         flex-direction: column;
-        padding: 0 0.5rem;
     }
     
     #radar-legend-enhanced {
@@ -320,6 +323,12 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 2rem;
+    }
+}
+
+@media (max-width: 960px) {
+    .md-content__inner {
+        padding: 0 0.5rem;
     }
 }
 
